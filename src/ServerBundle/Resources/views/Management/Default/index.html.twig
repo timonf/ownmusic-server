@@ -1,0 +1,24 @@
+{% extends '@Server/Management/base.html.twig' %}
+
+{% block content %}
+  Give it a try. Upload your first files:
+  {{ form_start(form) }}
+  {{ form_errors(form) }}
+  {{ form_rest(form) }}
+  <button type="submit"><strong>Upload this shit!</strong></button>
+  {{ form_end(form) }}
+  <hr>
+  {{ dump(request) }}
+  <hr>
+  <ul>
+    {% for track in tracks %}
+      <li>
+        {{ track.title }}, {{ track.duration }}s, <a href="{{ path('track_file', {'track': track.id}) }}">File</a>
+        <audio controls>
+          <source src="{{ path('track_file', {'track': track.id}) }}" type="audio/mpeg">
+          Your browser does not support the audio tag.
+        </audio>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

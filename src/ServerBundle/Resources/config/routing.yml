@@ -1,0 +1,9 @@
+_server_management:
+    resource: "@ServerBundle/Controller/Management/"
+    type:     annotation
+    prefix:   /
+
+_server_api:
+    resource: "@ServerBundle/Controller/Api/"
+    type:     annotation
+    prefix:   /

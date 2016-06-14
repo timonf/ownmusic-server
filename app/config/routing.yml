@@ -1,0 +1,3 @@
+_server:
+    resource: "@ServerBundle/Resources/config/routing.yml"
+    prefix:   /
