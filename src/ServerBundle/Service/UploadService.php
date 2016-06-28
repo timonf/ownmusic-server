@@ -11,15 +11,28 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UploadService
 {
+    /**
+     * @var EntityManager
+     */
     protected $entityManager;
 
+    /**
+     * @var NameNormalizer
+     */
+    protected $nameNormalizer;
+
+    /**
+     * @var string
+     */
     protected $targetPath;
 
     public function __construct(
         EntityManager $entityManager,
+        NameNormalizer $nameNormalizer,
         $targetPath
     ) {
         $this->entityManager = $entityManager;
+        $this->nameNormalizer = $nameNormalizer;
         $this->targetPath = $targetPath;
     }
 
@@ -41,11 +54,13 @@ class UploadService
     public function processFile(UploadedFile $uploadedFile, $alreadyCalculatedMd5Sum)
     {
         $id3parser = new \getID3();
+        $id3parser->encoding = 'UTF-8';
         $id3FileInfo = $id3parser->analyze($uploadedFile->getRealPath());
         $fileInformation = Id3Information::fromGetId3Result($id3FileInfo);
 
         $track = new Track();
         $track->setTitle($fileInformation->getTitle());
+        $track->setNormalizedTitle($this->nameNormalizer->normalize($fileInformation->getTitle(), NameNormalizer::TYPE_SONG_TITLE));
         $track->setDuration($fileInformation->getPlaytime());
 
         $targetFile = $alreadyCalculatedMd5Sum . '.' . $uploadedFile->getClientOriginalExtension();

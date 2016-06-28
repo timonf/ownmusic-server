@@ -19,10 +19,16 @@ class Track
     protected $id;
 
     /**
-     * @ORM\Column
+     * @ORM\Column(type="string", length=511)
      * @var string
      */
     protected $title;
+
+    /**
+     * @ORM\Column(type="string", name="normalized_title", length=127)
+     * @var string
+     */
+    protected $normalizedTitle;
 
     /**
      * @ORM\Column(type="integer")
@@ -62,6 +68,22 @@ class Track
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNormalizedTitle()
+    {
+        return $this->normalizedTitle;
+    }
+
+    /**
+     * @param string $normalizedTitle
+     */
+    public function setNormalizedTitle($normalizedTitle)
+    {
+        $this->normalizedTitle = $normalizedTitle;
     }
 
     /**

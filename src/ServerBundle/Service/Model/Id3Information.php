@@ -24,7 +24,13 @@ class Id3Information
     {
         \getid3_lib::CopyTagsToComments($ThisFileInfo);
         $instance = new static;
-        $instance->artists = isset($ThisFileInfo['comments_html']['artist']) ? $ThisFileInfo['comments_html']['artist'] : [];
+        $instance->artists = [];
+        if (isset($ThisFileInfo['comments_html']['artist'])) {
+            foreach ($ThisFileInfo['comments_html']['artist'] as $artist) {
+                $instance->artists[] = $artist;
+            }
+        }
+        $instance->artists = isset($ThisFileInfo['comments_html']['artist']) ? ($ThisFileInfo['comments_html']['artist']) : [];
         $instance->artist = isset($instance->artists[0]) ? $instance->artists[0] : '';
         $instance->title = isset($ThisFileInfo['comments_html']['title'][0]) ? $ThisFileInfo['comments_html']['title'][0] : '';
         $instance->playtime = isset($ThisFileInfo['playtime_seconds']) ? $ThisFileInfo['playtime_seconds'] : 0;

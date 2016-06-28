@@ -5,8 +5,8 @@ Music serving service for own music library for multiple users.
 
 (Planned) features:
 
- *  Uploading music via web interface or select folder on local storage
- *  Web client
+ *  Uploading music via web interface (working) or select folder on local storage
+ *  Web client (working via HTML5 audio tag)
  *  Multiple users (with different roles for each user)
  *  Creating playlists
  *  Downloadable playlists
